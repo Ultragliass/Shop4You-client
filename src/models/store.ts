@@ -14,4 +14,5 @@ interface item {
 export interface IStore {
   categories: category[];
   items: item[];
+  numOfOrders: number;
 }

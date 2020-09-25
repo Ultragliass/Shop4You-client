@@ -13,5 +13,15 @@
   </div>
   <div>
     <div class="header">Info</div>
+    <div class="body">
+      Curret amount of items in the store: {{ itemAmount$ | async }}.
+    </div>
+    <div class="body">
+      Current amount of categories in the store: {{ categoryAmount$ | async }}
+    </div>
+
+    <div class="body">
+      Number of orders that have been made: {{ numOfOrders$ | async }}
+    </div>
   </div>
 </div>

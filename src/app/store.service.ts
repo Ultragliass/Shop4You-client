@@ -16,8 +16,6 @@ export class StoreService {
   }
 
   getStore(): Observable<IStore> {
-    return this.http.get<IStore>(BASE_URL, {
-      headers: this.getHeaders(),
-    });
+    return this.http.get<IStore>(BASE_URL);
   }
 }
