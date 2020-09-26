@@ -9,10 +9,16 @@ import { EffectsModule } from '@ngrx/effects';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HttpClientModule } from '@angular/common/http';
 import { IStoreState, storeReducer } from '../store/reducers/store';
+import { IUserState, userReducer } from '../store/reducers/user';
 import { StoreEffects } from '../store/effects/store';
+import { UserEffects } from '../store/effects/user';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 export interface IState {
   store: IStoreState;
+  user: IUserState;
 }
 
 @NgModule({
@@ -23,8 +29,11 @@ export interface IState {
     BrowserAnimationsModule,
     MatToolbarModule,
     HttpClientModule,
-    StoreModule.forRoot<IState>({ store: storeReducer }),
-    EffectsModule.forRoot([StoreEffects]),
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    StoreModule.forRoot<IState>({ store: storeReducer, user: userReducer }),
+    EffectsModule.forRoot([StoreEffects, UserEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],
