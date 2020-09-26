@@ -1,0 +1,33 @@
+.container {
+  background-color: rgb(173, 230, 190);
+  height: 93.1%;
+  width: 100%;
+  padding-top: 3.35%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.container > div {
+  text-align: center;
+  line-height: 25px;
+  width: 50%;
+  border: 1px solid white;
+}
+
+.container .header {
+    padding-top: 3px;
+    width: 100%;
+    background-color: #00000081;
+    color: white;
+    font-size: 20px;
+  
+  }
+  
+  .container .body {
+    margin-top: 20px;
+    font-size: 25px;
+    width: 95%;
+    margin-left: 2%;
+    color: white;
+    text-align: start;
+  }

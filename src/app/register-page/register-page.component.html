@@ -1,0 +1,70 @@
+<div class="container">
+  <div>
+    <div class="header">Step 1</div>
+    <form [formGroup]="step1" class="body" (ngSubmit)="continue()">
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label> ID </mat-label>
+        <input matInput formControlName="id" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label> Email </mat-label>
+        <input matInput type="email" formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label> Password </mat-label>
+        <input matInput type="password" formControlName="password" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label> Confirm password </mat-label>
+        <input matInput type="password" formControlName="confirmPassword" />
+      </mat-form-field>
+
+      <br />
+
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!step1.valid"
+        type="submit"
+      >
+        Continue
+      </button>
+    </form>
+  </div>
+  <div>
+    <div class="header">Step 2</div>
+    <form [formGroup]="step2" class="body" (ngSubmit)="register()">
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Street</mat-label>
+        <input matInput formControlName="street" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Lastname</mat-label>
+        <input matInput formControlName="lastname" />
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!step2.valid"
+        type="submit"
+      >
+        Register
+      </button>
+    </form>
+  </div>
+</div>

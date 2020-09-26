@@ -36,4 +36,57 @@ export class UserService {
       password,
     });
   }
+
+  checkDetails(
+    id: string,
+    email: string,
+    password: string
+  ): Observable<{ success: boolean; error?: string }> {
+    return this.http.post<{ success: boolean; error?: string }>(
+      `${BASE_URL}/check`,
+      { id, email, password }
+    );
+  }
+
+  register(
+    id: string,
+    email: string,
+    password: string,
+    city: string,
+    street: string,
+    name: string,
+    lastname: string
+  ): Observable<{
+    token: string;
+    userData: IUser;
+    currentCartDate: Date | undefined;
+    lastOrderDate: Date | undefined;
+  }> {
+    return this.http.post<{
+      token: string;
+      userData: IUser;
+      currentCartDate: Date | undefined;
+      lastOrderDate: Date | undefined;
+    }>(`${BASE_URL}/register`, {
+      id,
+      email,
+      password,
+      city,
+      street,
+      name,
+      lastname,
+    });
+  }
+
+  authenticate(): Observable<{
+    userData: IUser;
+    currentCartDate: Date | undefined;
+    lastOrderDate: Date | undefined;
+  }> {
+    return this.http.get<{
+      userData: IUser;
+      currentCartDate: Date | undefined;
+      lastOrderDate: Date | undefined;
+    }>(`${BASE_URL}/authenticate`, { headers: this.getHeaders() });
+  }
 }

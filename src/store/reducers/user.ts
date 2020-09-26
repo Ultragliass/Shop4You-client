@@ -1,12 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
 import { IUser } from '../../models/user';
-import { completeLogin } from '../actions/user';
+import {
+  completeAuthentication,
+  completeCheck,
+  completeLogin,
+} from '../actions/user';
 
 export interface IUserState {
   isLoggedIn: boolean;
   userData: IUser | null;
   currentCartDate: Date | null;
   lastOrderDate: Date | null;
+  step1Valid: boolean;
 }
 
 const initialState: IUserState = {
@@ -14,6 +19,7 @@ const initialState: IUserState = {
   userData: null,
   currentCartDate: null,
   lastOrderDate: null,
+  step1Valid: false,
 };
 
 export const userReducer = createReducer(
@@ -24,6 +30,26 @@ export const userReducer = createReducer(
       localStorage.setItem('token', token);
 
       return {
+        ...state,
+        isLoggedIn: true,
+        userData,
+        currentCartDate: currentCartDate || null,
+        lastOrderDate: lastOrderDate || null,
+        step1Valid: false,
+      };
+    }
+  ),
+  on(completeCheck, (state, { success, error }) => {
+    return {
+      ...state,
+      step1Valid: success,
+    };
+  }),
+  on(
+    completeAuthentication,
+    (state, { userData, currentCartDate, lastOrderDate }) => {
+      return {
+        ...state,
         isLoggedIn: true,
         userData,
         currentCartDate: currentCartDate || null,

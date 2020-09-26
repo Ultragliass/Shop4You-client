@@ -15,6 +15,7 @@ import { UserEffects } from '../store/effects/user';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 export interface IState {
   store: IStoreState;
@@ -22,7 +23,7 @@ export interface IState {
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginPageComponent],
+  declarations: [AppComponent, LoginPageComponent, RegisterPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
