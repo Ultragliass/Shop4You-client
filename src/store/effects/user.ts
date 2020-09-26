@@ -19,9 +19,8 @@ export class UserEffects {
       ofType(startLogin),
       mergeMap(({ password, email }) =>
         this.userService.login(email, password).pipe(
-          map(({ token, userData }) => {
-            console.log(token)
-            return completeLogin({ token, userData });
+          map(({ token, userData, currentCartDate, lastOrderDate }) => {
+            return completeLogin({ token, userData, currentCartDate, lastOrderDate });
           }),
           catchError((error: Error) => {
             return of({ type: 'error' });

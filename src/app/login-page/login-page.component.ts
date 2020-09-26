@@ -18,6 +18,14 @@ export class LoginPageComponent {
 
   numOfOrders$: Observable<number>;
 
+  isLoggedIn: boolean | null;
+
+  name: string;
+
+  currentCartDate: Date | null;
+
+  lastOrderDate: Date | null;
+
   constructor(
     private store: Store<IState>,
     private fb: FormBuilder,
@@ -34,6 +42,20 @@ export class LoginPageComponent {
     this.numOfOrders$ = this.store.select(
       (state) => state.store.store?.numOfOrders
     );
+
+    this.store.subscribe((state) => {
+      this.isLoggedIn = state.user.isLoggedIn;
+
+      if (state.user.userData) {
+        this.name = state.user.userData.name;
+      }
+    });
+
+    this.store.subscribe((state) => {
+      this.currentCartDate = state.user.currentCartDate;
+
+      this.lastOrderDate = state.user.lastOrderDate;
+    });
   }
 
   form = this.fb.group({
@@ -46,7 +68,11 @@ export class LoginPageComponent {
 
   login() {
     const { email, password } = this.form.value;
-    
+
     this.store.dispatch(startLogin({ email, password }));
+  }
+
+  goToRegister() {
+    this.router.navigateByUrl('/register');
   }
 }

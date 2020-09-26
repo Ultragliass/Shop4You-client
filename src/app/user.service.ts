@@ -20,13 +20,20 @@ export class UserService {
   login(
     email: string,
     password: string
-  ): Observable<{ token: string; userData: IUser }> {
-    return this.http.post<{ token: string; userData: IUser }>(
-      `${BASE_URL}/login`,
-      {
-        email,
-        password,
-      }
-    );
+  ): Observable<{
+    token: string;
+    userData: IUser;
+    currentCartDate: Date | undefined;
+    lastOrderDate: Date | undefined;
+  }> {
+    return this.http.post<{
+      token: string;
+      userData: IUser;
+      currentCartDate: Date | undefined;
+      lastOrderDate: Date | undefined;
+    }>(`${BASE_URL}/login`, {
+      email,
+      password,
+    });
   }
 }

@@ -8,5 +8,10 @@ export const startLogin = createAction(
 
 export const completeLogin = createAction(
   'LOGIN_SUCCESS',
-  props<{ token: string; userData: IUser }>()
+  props<{
+    token: string;
+    userData: IUser;
+    currentCartDate: Date | null;
+    lastOrderDate: Date | null;
+  }>()
 );

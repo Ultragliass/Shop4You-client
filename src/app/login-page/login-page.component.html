@@ -1,5 +1,5 @@
 <div class="container">
-  <div>
+  <div *ngIf="!isLoggedIn">
     <div class="header">Login</div>
     <form [formGroup]="form" class="body" (ngSubmit)="login()">
       <mat-form-field appearance="fill" style="width: 100%">
@@ -24,7 +24,12 @@
       >
         Login
       </button>
+
+      <a style="margin-left: 20px">Don't have a user yet? Register!</a>
     </form>
+  </div>
+  <div *ngIf="isLoggedIn">
+    <div class="header">Welcome, {{ name }}.</div>
   </div>
   <div>
     <div class="header">About</div>
@@ -46,6 +51,20 @@
 
     <div class="body">
       Number of orders that have been made: {{ numOfOrders$ | async }}
+    </div>
+
+    <div *ngIf="isLoggedIn" class="body">
+      <h1 *ngIf="currentCartDate">
+        Latest cart was created at: {{ currentCartDate | date }}
+      </h1>
+
+      <h1 *ngIf="lastOrderDate && !currentCartDate">
+        Your latest order was at: {{ lastOrderDate | date }}
+      </h1>
+
+      <h1 *ngIf="!lastOrderDate && !currentCartDate">
+        Welcome to your first order!
+      </h1>
     </div>
   </div>
 </div>
