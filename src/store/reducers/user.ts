@@ -5,6 +5,7 @@ import {
   completeCheck,
   completeLogin,
   dismissError,
+  logout,
   showError,
 } from '../actions/user';
 
@@ -75,5 +76,8 @@ export const userReducer = createReducer(
       ...state,
       error: null,
     };
+  }),
+  on(logout, () => {
+    return initialState;
   })
 );

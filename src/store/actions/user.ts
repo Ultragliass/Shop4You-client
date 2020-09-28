@@ -53,3 +53,5 @@ export const completeAuthentication = createAction(
 export const showError = createAction('SHOW_ERROR', props<{ error: string }>());
 
 export const dismissError = createAction('DISMISS_ERROR');
+
+export const logout = createAction('LOGOUT_USER');

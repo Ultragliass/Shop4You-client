@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { fetchStore } from 'src/store/actions/store';
 import {
   dismissError,
-  showError,
+  logout,
   startAuthentication,
 } from 'src/store/actions/user';
 import { IState } from './app.module';
@@ -17,12 +17,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AppComponent {
   error: string | null;
 
+  isLoggedIn: boolean = false;
+
   constructor(private store: Store<IState>, private snackBar: MatSnackBar) {
     this.store.dispatch(fetchStore());
 
     if (localStorage.getItem('token')) {
       this.store.dispatch(startAuthentication());
     }
+
+    this.store.subscribe((state) => {
+      this.isLoggedIn = state.user.isLoggedIn;
+    });
 
     this.store.subscribe((state) => {
       if (state.user.error !== this.error) {
@@ -43,5 +49,9 @@ export class AppComponent {
     });
 
     this.store.dispatch(dismissError());
+  }
+
+  logoutUser() {
+    this.store.dispatch(logout());
   }
 }

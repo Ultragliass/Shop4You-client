@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { StorePageComponent } from './store-page/store-page.component';
 
 export interface IState {
   store: IStoreState;
@@ -24,7 +25,7 @@ export interface IState {
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginPageComponent, RegisterPageComponent],
+  declarations: [AppComponent, LoginPageComponent, RegisterPageComponent, StorePageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

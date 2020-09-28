@@ -36,8 +36,8 @@ export class UserEffects {
               lastOrderDate,
             });
           }),
-          catchError((error) => {
-            return of(showError({ error: error.error.error }));
+          catchError(({ error }) => {
+            return of(showError({ error: error.error }));
           })
         )
       )
@@ -78,7 +78,7 @@ export class UserEffects {
                 lastOrderDate: null,
               });
             }),
-            catchError((error) => {
+            catchError(({error}) => {
               return of(showError({ error: error.error }));
             })
           )
