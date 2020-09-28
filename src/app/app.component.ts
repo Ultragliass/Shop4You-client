@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { IStore } from 'src/models/store';
 import { fetchStore } from 'src/store/actions/store';
-import { startAuthentication } from 'src/store/actions/user';
+import {
+  dismissError,
+  showError,
+  startAuthentication,
+} from 'src/store/actions/user';
 import { IState } from './app.module';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +15,33 @@ import { IState } from './app.module';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private store: Store<IState>) {
+  error: string | null;
+
+  constructor(private store: Store<IState>, private snackBar: MatSnackBar) {
     this.store.dispatch(fetchStore());
 
     if (localStorage.getItem('token')) {
       this.store.dispatch(startAuthentication());
     }
+
+    this.store.subscribe((state) => {
+      if (state.user.error !== this.error) {
+        this.error = state.user.error;
+
+        this.openSnackbar(state.user.error);
+      }
+    });
+  }
+
+  openSnackbar(message: string | null) {
+    if (!message) {
+      return;
+    }
+
+    this.snackBar.open(message, 'close', {
+      duration: 2000,
+    });
+
+    this.store.dispatch(dismissError());
   }
 }

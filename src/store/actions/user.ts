@@ -49,3 +49,7 @@ export const completeAuthentication = createAction(
     lastOrderDate: Date | null;
   }>()
 );
+
+export const showError = createAction('SHOW_ERROR', props<{ error: string }>());
+
+export const dismissError = createAction('DISMISS_ERROR');

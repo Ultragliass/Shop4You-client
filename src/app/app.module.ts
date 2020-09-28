@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 export interface IState {
   store: IStoreState;
@@ -33,6 +34,7 @@ export interface IState {
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
+    MatSnackBarModule,
     StoreModule.forRoot<IState>({ store: storeReducer, user: userReducer }),
     EffectsModule.forRoot([StoreEffects, UserEffects]),
   ],

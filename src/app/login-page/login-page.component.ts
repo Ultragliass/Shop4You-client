@@ -26,6 +26,8 @@ export class LoginPageComponent {
 
   lastOrderDate: Date | null;
 
+  role: string | null;
+
   constructor(
     private store: Store<IState>,
     private fb: FormBuilder,
@@ -55,6 +57,13 @@ export class LoginPageComponent {
       this.currentCartDate = state.user.currentCartDate;
 
       this.lastOrderDate = state.user.lastOrderDate;
+    });
+
+    this.store.subscribe((state) => {
+      if (!state.user.userData) {
+        return;
+      }
+      this.role = state.user.userData.role;
     });
   }
 

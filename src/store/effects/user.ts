@@ -7,6 +7,7 @@ import {
   completeAuthentication,
   completeCheck,
   completeLogin,
+  showError,
   startAuthentication,
   startCheck,
   startLogin,
@@ -35,8 +36,8 @@ export class UserEffects {
               lastOrderDate,
             });
           }),
-          catchError((error: Error) => {
-            return of({ type: 'error' });
+          catchError((error) => {
+            return of(showError({ error: error.error.error }));
           })
         )
       )
@@ -54,8 +55,8 @@ export class UserEffects {
               error,
             });
           }),
-          catchError((error: Error) => {
-            return of({ type: 'error' });
+          catchError(({ error }) => {
+            return of(showError({ error: error.error }));
           })
         )
       )
@@ -77,8 +78,8 @@ export class UserEffects {
                 lastOrderDate: null,
               });
             }),
-            catchError((error: Error) => {
-              return of({ type: 'error' });
+            catchError((error) => {
+              return of(showError({ error: error.error }));
             })
           )
       )
@@ -97,9 +98,9 @@ export class UserEffects {
               lastOrderDate,
             });
           }),
-          catchError((error: Error) => {
+          catchError(() => {
             localStorage.removeItem('token');
-            return of({ type: 'error' });
+            return of(null);
           })
         )
       )
