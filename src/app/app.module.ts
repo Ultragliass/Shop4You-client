@@ -10,8 +10,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { HttpClientModule } from '@angular/common/http';
 import { IStoreState, storeReducer } from '../store/reducers/store';
 import { IUserState, userReducer } from '../store/reducers/user';
+import { ICartState, cartReducer } from '../store/reducers/cart';
 import { StoreEffects } from '../store/effects/store';
 import { UserEffects } from '../store/effects/user';
+import { CartEffects } from '../store/effects/cart';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,13 +21,14 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StorePageComponent } from './store-page/store-page.component';
 import { ItemComponent } from './item/item.component';
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { FormsModule } from '@angular/forms';
 
 export interface IState {
   store: IStoreState;
   user: IUserState;
+  cart: ICartState;
 }
 
 @NgModule({
@@ -49,10 +52,14 @@ export interface IState {
     MatSnackBarModule,
     MatDialogModule,
     FormsModule,
-    StoreModule.forRoot<IState>({ store: storeReducer, user: userReducer }),
-    EffectsModule.forRoot([StoreEffects, UserEffects]),
+    StoreModule.forRoot<IState>({
+      store: storeReducer,
+      user: userReducer,
+      cart: cartReducer,
+    }),
+    EffectsModule.forRoot([StoreEffects, UserEffects, CartEffects]),
   ],
-  providers: [{ provide: MatDialogRef, useValue: {} }],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { IItem } from 'src/models/store';
+import { startAddItem } from 'src/store/actions/cart';
 import { IState } from '../app.module';
 import { DialogComponent } from '../dialog/dialog.component';
 @Component({
@@ -16,11 +17,9 @@ export class ItemComponent implements OnInit {
 
   item: IItem;
 
-  constructor(
-    private store: Store<IState>,
-    private dialog: MatDialog,
-    private dialogRef: MatDialogRef<DialogComponent>
-  ) {}
+  cartId: string;
+
+  constructor(private store: Store<IState>, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.store.subscribe((state) => {
@@ -31,18 +30,22 @@ export class ItemComponent implements OnInit {
       this.items = state.store.store.items;
 
       this.item = this.items.find((_item) => _item._id === this.id);
+
+      this.cartId = state.user.userData.currentCartId;
     });
   }
 
   openDialogue(): void {
     const dialogRef = this.dialog.open(DialogComponent);
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (!result) {
+    dialogRef.afterClosed().subscribe((amount) => {
+      if (!amount) {
         return;
       }
 
-      console.log(result)
+      this.store.dispatch(
+        startAddItem({ itemId: this.item._id, amount, cartId: this.cartId })
+      );
     });
   }
 }
