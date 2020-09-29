@@ -3,7 +3,12 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { StoreService } from '../../app/store.service';
-import { fetchStore, receiveStore } from '../actions/store';
+import {
+  fetchItemsByCategory,
+  fetchStore,
+  receiveItemsByCategory,
+  receiveStore,
+} from '../actions/store';
 @Injectable()
 export class StoreEffects {
   constructor(private actions$: Actions, private storeService: StoreService) {}
@@ -18,6 +23,22 @@ export class StoreEffects {
           }),
           catchError((error: Error) => {
             return of({ type: 'error', error: error.message });
+          })
+        )
+      )
+    )
+  );
+
+  fetchItemsByCategory$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fetchItemsByCategory),
+      mergeMap(({ categoryId }) =>
+        this.storeService.getItemsByCategory(categoryId).pipe(
+          map(({ selectedItems, items }) => {
+            return receiveItemsByCategory({ selectedItems, items });
+          }),
+          catchError(() => {
+            return of(null);
           })
         )
       )

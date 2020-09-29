@@ -1,6 +1,12 @@
 html,
 body {
   height: 100%;
+  box-sizing: border-box;
+  background-color: rgb(173, 230, 190);
+}
+
+body * {
+  box-sizing: border-box;
 }
 
 body {
@@ -10,4 +16,6 @@ body {
 
 .container {
   padding-top: 3.35%;
+  height: 100%;
+  width: 100%;
 }

@@ -1,5 +1,19 @@
 import { createAction, props } from '@ngrx/store';
-import {IStore} from '../../models/store';
+import { IItem, IStore } from '../../models/store';
 
 export const fetchStore = createAction('GET_STORE_PENDING');
-export const receiveStore = createAction('GET_TODOS_SUCCESS', props<{store: IStore}>());
+
+export const receiveStore = createAction(
+  'GET_STORE_SUCCESS',
+  props<{ store: IStore }>()
+);
+
+export const fetchItemsByCategory = createAction(
+  'GET_ITEMS_BY_CATEGORY',
+  props<{ categoryId: string }>()
+);
+
+export const receiveItemsByCategory = createAction(
+  'GET_ITEMS_BY_CATEGORY_SUCCESS',
+  props<{ selectedItems: IItem[]; items: IItem[] }>()
+);

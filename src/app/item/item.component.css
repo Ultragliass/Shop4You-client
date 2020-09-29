@@ -1,0 +1,11 @@
+.item {
+  border: 1px solid white;
+
+  flex: 1 0 25%;
+}
+
+.item img {
+  align-self: center;
+  height: 250px;
+  width: 450px;
+}

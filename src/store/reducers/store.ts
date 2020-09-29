@@ -1,15 +1,22 @@
 import { createReducer, on } from '@ngrx/store';
-import { IStore } from '../../models/store';
-import { fetchStore, receiveStore } from '../actions/store';
+import { IItem, IStore } from '../../models/store';
+import {
+  fetchItemsByCategory,
+  fetchStore,
+  receiveItemsByCategory,
+  receiveStore,
+} from '../actions/store';
 
 export interface IStoreState {
   store: IStore | null;
   isLoading: boolean;
+  selectedItems: IItem[];
 }
 
 const initialState: IStoreState = {
   store: null,
   isLoading: false,
+  selectedItems: [],
 };
 
 export const storeReducer = createReducer(
@@ -19,5 +26,17 @@ export const storeReducer = createReducer(
     ...state,
     isLoading: false,
     store,
-  }))
+  })),
+  on(fetchItemsByCategory, (state) => ({ ...state, isLoading: true })),
+  on(receiveItemsByCategory, (state, { selectedItems, items }) => {
+    return {
+      ...state,
+      store: {
+        ...state.store,
+        items,
+      },
+      selectedItems,
+      isLoading: false,
+    };
+  })
 );

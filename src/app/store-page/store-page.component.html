@@ -1,1 +1,26 @@
-<p>store-page works!</p>
+<div class="container">
+  <div class="categories">
+    <button
+      mat-button
+      class="category"
+      #all
+      (click)="toggleCategory(all, null)"
+      id="all"
+    >
+      All
+    </button>
+    <button
+      mat-button
+      #_category
+      *ngFor="let category of categories"
+      class="category"
+      (click)="toggleCategory(_category, category._id)"
+    >
+      {{ category.name }}
+    </button>
+  </div>
+
+  <div class="items" *ngIf="selectedItems">
+    <app-item *ngFor="let item of selectedItems" [id]="item._id"></app-item>
+  </div>
+</div>

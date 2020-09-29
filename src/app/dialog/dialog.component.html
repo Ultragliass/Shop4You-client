@@ -1,0 +1,11 @@
+<div class="dialog">
+  <h1 mat-dialog-title>Choose amount</h1>
+  <div mat-dialog-content></div>
+  <div>
+    <input matinput type="number" min="0" [(ngModel)]="quantity" />
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close>close</button>
+    <button mat-raised-button [mat-dialog-close]="quantity">Confirm</button>
+  </div>
+</div>

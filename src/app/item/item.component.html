@@ -1,0 +1,9 @@
+<div *ngIf="item" class="item">
+  <img src="{{ item.URLPath }}" alt="{{ item.name }}" />
+  <h2>{{ item.name }}</h2>
+  <h3>Price: ₪ {{ item.price }}</h3>
+  <button mat-raised-button color="primary" (click)="openDialogue()">
+    Add to cart
+  </button>
+</div>
+

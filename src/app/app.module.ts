@@ -18,6 +18,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StorePageComponent } from './store-page/store-page.component';
+import { ItemComponent } from './item/item.component';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './dialog/dialog.component';
+import { FormsModule } from '@angular/forms';
 
 export interface IState {
   store: IStoreState;
@@ -25,7 +29,14 @@ export interface IState {
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginPageComponent, RegisterPageComponent, StorePageComponent],
+  declarations: [
+    AppComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
+    StorePageComponent,
+    ItemComponent,
+    DialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -36,10 +47,12 @@ export interface IState {
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatDialogModule,
+    FormsModule,
     StoreModule.forRoot<IState>({ store: storeReducer, user: userReducer }),
     EffectsModule.forRoot([StoreEffects, UserEffects]),
   ],
-  providers: [],
+  providers: [{ provide: MatDialogRef, useValue: {} }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
