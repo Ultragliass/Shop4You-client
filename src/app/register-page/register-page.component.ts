@@ -24,9 +24,7 @@ export class RegisterPageComponent implements OnInit {
       if (state.user.isLoggedIn) {
         router.navigateByUrl('/');
       }
-    });
 
-    this.store.subscribe((state) => {
       if (state.user.step1Valid) {
         this.step1Valid = state.user.step1Valid;
 

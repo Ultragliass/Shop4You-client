@@ -55,3 +55,12 @@ export const showError = createAction('SHOW_ERROR', props<{ error: string }>());
 export const dismissError = createAction('DISMISS_ERROR');
 
 export const logout = createAction('LOGOUT_USER');
+
+export const ping = createAction('PING_USER');
+
+export const startCreateCart = createAction('CREATE_CART_PENDING');
+
+export const completeCreateCart = createAction(
+  'CREATE_CART_COMPLETE',
+  props<{ cartId: string }>()
+);

@@ -1,15 +1,19 @@
+import { Router } from '@angular/router';
 import { createReducer, on } from '@ngrx/store';
 import { IUser } from '../../models/user';
 import {
   completeAuthentication,
   completeCheck,
+  completeCreateCart,
   completeLogin,
   dismissError,
   logout,
   showError,
+  startCreateCart,
 } from '../actions/user';
 
 export interface IUserState {
+  isLoading: boolean;
   isLoggedIn: boolean;
   userData: IUser | null;
   currentCartDate: Date | null;
@@ -19,6 +23,7 @@ export interface IUserState {
 }
 
 const initialState: IUserState = {
+  isLoading: false,
   isLoggedIn: false,
   userData: null,
   currentCartDate: null,
@@ -78,6 +83,25 @@ export const userReducer = createReducer(
     };
   }),
   on(logout, () => {
+    localStorage.removeItem('token');
+
     return initialState;
+  }),
+  on(startCreateCart, (state) => {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+  on(completeCreateCart, (state, { cartId }) => {
+    const { userData } = state;
+    return {
+      ...state,
+      isLoading: false,
+      userData: {
+        ...userData,
+        currentCartId: cartId,
+      },
+    };
   })
 );

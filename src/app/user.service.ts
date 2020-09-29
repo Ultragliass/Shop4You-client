@@ -89,4 +89,18 @@ export class UserService {
       lastOrderDate: Date | undefined;
     }>(`${BASE_URL}/authenticate`, { headers: this.getHeaders() });
   }
+
+  ping(): Observable<{ success: boolean }> {
+    return this.http.get<{ success: boolean }>(`${BASE_URL}/ping`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  createCart(): Observable<{ cartId: string }> {
+    return this.http.post<{ cartId: string }>(
+      'http://localhost:4201/cart',
+      {},
+      { headers: this.getHeaders() }
+    );
+  }
 }

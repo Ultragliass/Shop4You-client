@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { UserService } from '../../app/user.service';
 import {
   completeAuthentication,
   completeCheck,
+  completeCreateCart,
   completeLogin,
+  ping,
   showError,
   startAuthentication,
   startCheck,
+  startCreateCart,
   startLogin,
   startRegister,
 } from '../actions/user';
@@ -78,7 +81,7 @@ export class UserEffects {
                 lastOrderDate: null,
               });
             }),
-            catchError(({error}) => {
+            catchError(({ error }) => {
               return of(showError({ error: error.error }));
             })
           )
@@ -100,6 +103,46 @@ export class UserEffects {
           }),
           catchError(() => {
             localStorage.removeItem('token');
+            return of(null);
+          })
+        )
+      )
+    )
+  );
+
+  ping$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ping),
+      mergeMap(() =>
+        this.userService.ping().pipe(
+          map(({ success }) => {
+            if (success) {
+              return { type: 'CONTINUE' };
+            } else {
+              this.router.navigateByUrl('/');
+
+              return { type: 'RETURN' };
+            }
+          }),
+          catchError(() => {
+            this.router.navigateByUrl('/');
+
+            return of({ type: 'RETURN' });
+          })
+        )
+      )
+    )
+  );
+
+  createCart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(startCreateCart),
+      switchMap(() =>
+        this.userService.createCart().pipe(
+          map(({ cartId }) => {
+            return completeCreateCart({ cartId });
+          }),
+          catchError(() => {
             return of(null);
           })
         )

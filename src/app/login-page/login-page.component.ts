@@ -51,18 +51,15 @@ export class LoginPageComponent {
       if (state.user.userData) {
         this.name = state.user.userData.name;
       }
-    });
 
-    this.store.subscribe((state) => {
-      this.currentCartDate = state.user.currentCartDate;
-
-      this.lastOrderDate = state.user.lastOrderDate;
-    });
-
-    this.store.subscribe((state) => {
       if (!state.user.userData) {
         return;
       }
+
+      this.currentCartDate = state.user.currentCartDate;
+
+      this.lastOrderDate = state.user.lastOrderDate;
+
       this.role = state.user.userData.role;
     });
   }

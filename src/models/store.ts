@@ -1,9 +1,9 @@
-interface category {
+export interface ICategory {
   _id: string;
   name: string;
 }
 
-interface item {
+export interface IItem {
   _id: string;
   name: string;
   price: number;
@@ -12,7 +12,7 @@ interface item {
 }
 
 export interface IStore {
-  categories: category[];
-  items: item[];
+  categories: ICategory[];
+  items: IItem[];
   numOfOrders: number;
 }
