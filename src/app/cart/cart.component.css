@@ -19,6 +19,7 @@ mat-drawer-content {
   text-align: center;
 }
 
-button {
+.toggle {
   position: fixed;
+  z-index: 1;
 }

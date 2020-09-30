@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.container > div {
+  text-align: center;
+  line-height: 25px;
+  width: 50%;
+  border: 1px solid white;
+  overflow-y: scroll;
+}
+
+.container .header {
+  padding-top: 3px;
+  width: 100%;
+  background-color: #00000081;
+  color: white;
+  font-size: 20px;
+}
+
+.container .body {
+  margin-top: 20px;
+  font-size: 25px;
+  width: 95%;
+  margin-left: 2%;
+  color: white;
+  text-align: start;
+}
+
+.body-flex {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  text-align: center;
+}

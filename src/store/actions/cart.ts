@@ -30,3 +30,20 @@ export const completeRemoveItem = createAction(
   'REMOVE_CART_ITEM_COMPLETE',
   props<{ cartItemId: string }>()
 );
+
+export const placeOrder = createAction(
+  'PLACE_ORDER_PENDING',
+  props<{
+    cartId: string;
+    finalPrice: number;
+    deliveryCity: string;
+    deliveryStreet: string;
+    deliveryDate: Date;
+    lastCreditDigits;
+  }>()
+);
+
+export const completeOrder = createAction(
+  'PLACE_ORDER_COMPLETE',
+  props<{ orderId: string }>()
+);

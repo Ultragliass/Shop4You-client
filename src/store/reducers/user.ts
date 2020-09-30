@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { createReducer, on } from '@ngrx/store';
 import { IUser } from '../../models/user';
+import { completeOrder } from '../actions/cart';
 import {
   completeAuthentication,
   completeCheck,
@@ -70,7 +71,6 @@ export const userReducer = createReducer(
     }
   ),
   on(showError, (state, { error }) => {
-    console.log(error);
     return {
       ...state,
       error,
@@ -101,6 +101,15 @@ export const userReducer = createReducer(
       userData: {
         ...userData,
         currentCartId: cartId,
+      },
+    };
+  }),
+  on(completeOrder, (state) => {
+    return {
+      ...state,
+      userData: {
+        ...state.userData,
+        currentCartId: null,
       },
     };
   })

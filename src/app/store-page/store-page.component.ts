@@ -27,7 +27,7 @@ export class StorePageComponent implements OnInit {
   search: string = '';
 
   constructor(private store: Store<IState>, private router: Router) {
-    this.store.select((state) => {
+    this.store.subscribe((state) => {
       if (!state.user.userData.currentCartId && !state.user.isLoading) {
         this.store.dispatch(startCreateCart());
       }

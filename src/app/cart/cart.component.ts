@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ICartItem } from 'src/models/cartItem';
 import { fetchCart } from 'src/store/actions/cart';
@@ -9,7 +10,7 @@ import { IState } from '../app.module';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
 })
-export class CartComponent implements OnInit {
+export class CartComponent {
   buttonLeft: string = 'left: 0px';
 
   navLeft: string = 'left: -400px';
@@ -20,7 +21,7 @@ export class CartComponent implements OnInit {
 
   cartId: string;
 
-  constructor(private store: Store<IState>) {
+  constructor(private store: Store<IState>, private router: Router) {
     this.store.subscribe((state) => {
       this.cartId = state.user.userData?.currentCartId;
 
@@ -37,11 +38,12 @@ export class CartComponent implements OnInit {
       this.totalPrice = this.cartItems.reduce((total, item) => {
         return total + item.totalPrice;
       }, 0);
-
     });
   }
 
-  ngOnInit(): void {}
+  goToCheckout(): void {
+    this.router.navigateByUrl('/checkout');
+  }
 
   toggleCart(): void {
     if (this.buttonLeft === 'left: 0px') {

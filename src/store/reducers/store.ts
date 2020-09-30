@@ -7,6 +7,7 @@ import {
   receiveSearchedItems,
   receiveStore,
 } from '../actions/store';
+import { logout } from '../actions/user';
 
 export interface IStoreState {
   store: IStore | null;
@@ -49,6 +50,13 @@ export const storeReducer = createReducer(
       },
       selectedItems,
       isLoading: false,
+    };
+  }),
+  on(logout, (state) => {
+    return {
+      ...state,
+      isLoading: false,
+      selectedItems: [],
     };
   })
 );

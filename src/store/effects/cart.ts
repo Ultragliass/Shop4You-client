@@ -5,12 +5,15 @@ import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { CartService } from '../../app/cart.service';
 import {
   completeAddItem,
+  completeOrder,
   completeRemoveItem,
   fetchCart,
   getCart,
+  placeOrder,
   startAddItem,
   startRemoveItem,
 } from '../actions/cart';
+import { showError } from '../actions/user';
 
 @Injectable()
 export class CartEffects {
@@ -25,7 +28,7 @@ export class CartEffects {
             return getCart({ cartItems });
           }),
           catchError((error) => {
-            return of({type: 'error'});
+            return of({ type: 'error' });
           })
         )
       )
@@ -41,7 +44,7 @@ export class CartEffects {
             return completeAddItem({ cartItem });
           }),
           catchError((error) => {
-            return of({type: 'error'});
+            return of({ type: 'error' });
           })
         )
       )
@@ -57,10 +60,43 @@ export class CartEffects {
             return completeRemoveItem({ cartItemId });
           }),
           catchError((error) => {
-            console.log(error.error)
-            return of({type: 'error'});
+            console.log(error.error);
+            return of({ type: 'error' });
           })
         )
+      )
+    )
+  );
+
+  placeOrder$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(placeOrder),
+      mergeMap(
+        ({
+          cartId,
+          deliveryCity,
+          deliveryDate,
+          deliveryStreet,
+          finalPrice,
+          lastCreditDigits,
+        }) =>
+          this.cartService
+            .placeOrder(
+              cartId,
+              finalPrice,
+              deliveryCity,
+              deliveryStreet,
+              deliveryDate,
+              lastCreditDigits
+            )
+            .pipe(
+              map(({ orderId }) => {
+                return completeOrder({ orderId });
+              }),
+              catchError(({ error }) => {
+                return of(showError({ error: error.error }));
+              })
+            )
       )
     )
   );

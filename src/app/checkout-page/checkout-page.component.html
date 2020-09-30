@@ -1,0 +1,47 @@
+<div class="container">
+  <div>
+    <div class="header">My cart</div>
+    <div class="body body-flex">
+      <app-checkout-item
+        class="item"
+        *ngFor="let item of cartItems"
+        [cartItem]="item"
+      ></app-checkout-item>
+      <h1 class="total">Total price: ₪ {{ totalPrice }}</h1>
+    </div>
+  </div>
+  <div>
+    <div class="header">Order</div>
+    <form [formGroup]="form" class="body" (ngSubmit)="placeOrder()">
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Street</mat-label>
+        <input matInput formControlName="street" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Shipping Date</mat-label>
+        <input matInput formControlName="shippingDate" type="date" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Credit Card</mat-label>
+        <input matInput formControlName="creditCard" />
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="form.invalid"
+        type="submit"
+      >
+        Place Order
+      </button>
+    </form>
+  </div>
+  <button mat-raised-button color="warn" (click)="goBack()">Back</button>
+</div>

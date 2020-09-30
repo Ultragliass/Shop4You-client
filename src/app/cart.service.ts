@@ -44,4 +44,26 @@ export class CartService {
       { headers: this.getHeaders() }
     );
   }
+
+  placeOrder(
+    cartId: string,
+    finalPrice: number,
+    deliveryCity: string,
+    deliveryStreet: string,
+    deliveryDate: Date,
+    lastCreditDigits
+  ): Observable<{ orderId: string }> {
+    return this.http.post<{ orderId: string }>(
+      `http://localhost:4201/order`,
+      {
+        cartId,
+        finalPrice,
+        deliveryCity,
+        deliveryStreet,
+        deliveryDate,
+        lastCreditDigits,
+      },
+      { headers: this.getHeaders() }
+    );
+  }
 }

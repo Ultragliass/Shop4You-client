@@ -1,12 +1,26 @@
 <mat-sidenav-container class="content" [style]="navLeft">
   <mat-sidenav-content>
-    <app-cart-item class="items"
+    <app-cart-item
+      class="items"
       *ngFor="let item of cartItems"
       [cartItem]="item"
     ></app-cart-item>
     <h1 class="total">Total price: ₪ {{ totalPrice }}</h1>
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="cartItems?.length"
+      (click)="goToCheckout()"
+    >
+      Checkout
+    </button>
   </mat-sidenav-content>
 </mat-sidenav-container>
-<button mat-raised-button (click)="toggleCart()" [style]="buttonLeft">
+<button
+  mat-raised-button
+  (click)="toggleCart()"
+  class="toggle"
+  [style]="buttonLeft"
+>
   Cart
 </button>
