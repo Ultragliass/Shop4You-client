@@ -29,6 +29,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { CheckoutItemComponent } from './checkout-item/checkout-item.component';
+import { ReceiptComponent } from './receipt/receipt.component';
 
 export interface IState {
   store: IStoreState;
@@ -48,6 +49,7 @@ export interface IState {
     CartItemComponent,
     CheckoutPageComponent,
     CheckoutItemComponent,
+    ReceiptComponent,
   ],
   imports: [
     BrowserModule,

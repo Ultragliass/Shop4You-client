@@ -47,3 +47,8 @@ export const completeOrder = createAction(
   'PLACE_ORDER_COMPLETE',
   props<{ orderId: string }>()
 );
+
+export const printReceipt = createAction(
+  'PRINT_RECEIPT',
+  props<{ orderId: string }>()
+);

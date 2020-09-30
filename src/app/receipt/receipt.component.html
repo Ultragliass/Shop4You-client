@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Thank you for your purchase!</h1>
+
+  <h2>Order ID: {{ orderId }}</h2>
+
+  <br />
+
+  <button mat-raised-button color="primary" (click)="printReceipt()">
+    Print
+  </button>
+
+  <button mat-raised-button color="warn" (click)="goBack()">Back</button>
+</div>

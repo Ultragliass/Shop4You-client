@@ -66,4 +66,11 @@ export class CartService {
       { headers: this.getHeaders() }
     );
   }
+
+  printReceipt(orderId: string): Observable<any> {
+    return this.http.get(
+      `http://localhost:4201/order/print/${orderId}`,
+      { headers: this.getHeaders() }
+    );
+  }
 }

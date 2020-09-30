@@ -2,10 +2,16 @@
   <div>
     <div class="header">My cart</div>
     <div class="body body-flex">
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="search" />
+      </mat-form-field>
+
       <app-checkout-item
         class="item"
         *ngFor="let item of cartItems"
         [cartItem]="item"
+        [search]="search"
       ></app-checkout-item>
       <h1 class="total">Total price: ₪ {{ totalPrice }}</h1>
     </div>

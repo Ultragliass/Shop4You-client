@@ -28,9 +28,7 @@ export class AppComponent {
 
     this.store.subscribe((state) => {
       this.isLoggedIn = state.user.isLoggedIn;
-    });
 
-    this.store.subscribe((state) => {
       if (state.user.error !== this.error) {
         this.error = state.user.error;
 

@@ -12,7 +12,11 @@ import { IState } from '../app.module';
 export class CheckoutItemComponent implements OnInit {
   @Input() cartItem: ICartItem;
 
+  @Input() search: string;
+
   item: IItem;
+
+  color: string = 'white';
 
   constructor(private store: Store<IState>) {}
 

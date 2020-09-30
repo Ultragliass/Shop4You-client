@@ -26,9 +26,15 @@ export class StorePageComponent implements OnInit {
 
   search: string = '';
 
+  role: string;
+
   constructor(private store: Store<IState>, private router: Router) {
     this.store.subscribe((state) => {
-      if (!state.user.userData.currentCartId && !state.user.isLoading) {
+      if (
+        !state.user.userData?.currentCartId &&
+        !state.user.isLoading &&
+        state.user.userData?.role !== 'admin'
+      ) {
         this.store.dispatch(startCreateCart());
       }
     });
@@ -75,6 +81,10 @@ export class StorePageComponent implements OnInit {
 
       if (!localStorage.getItem('token')) {
         this.router.navigateByUrl('/');
+      }
+
+      if (!this.role) {
+        this.role = state.user.userData.role;
       }
 
       if (!state.store.store) {

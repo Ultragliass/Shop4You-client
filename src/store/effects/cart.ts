@@ -10,6 +10,7 @@ import {
   fetchCart,
   getCart,
   placeOrder,
+  printReceipt,
   startAddItem,
   startRemoveItem,
 } from '../actions/cart';
@@ -97,6 +98,19 @@ export class CartEffects {
                 return of(showError({ error: error.error }));
               })
             )
+      )
+    )
+  );
+
+  printReceipt$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(printReceipt),
+      mergeMap(({ orderId }) =>
+        this.cartService.printReceipt(orderId).pipe(
+          map(() => {
+            return { type: 'no' };
+          })
+        )
       )
     )
   );

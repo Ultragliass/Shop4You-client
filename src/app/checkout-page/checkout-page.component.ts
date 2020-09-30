@@ -21,14 +21,17 @@ export class CheckoutPageComponent implements OnInit {
 
   cartId: string;
 
+  search: string;
+
   constructor(
     private store: Store<IState>,
     private router: Router,
     private fb: FormBuilder
   ) {
     this.store.subscribe((state) => {
-      if (!state.user.userData?.currentCartId) {
-        router.navigateByUrl('/');
+      if (state.cart.currentOrderId) {
+        router.navigateByUrl('/receipt');
+        return;
       }
 
       this.cartId = state.user.userData?.currentCartId;

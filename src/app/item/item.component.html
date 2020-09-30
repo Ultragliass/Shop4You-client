@@ -2,8 +2,15 @@
   <img src="{{ item.URLPath }}" alt="{{ item.name }}" />
   <h2>{{ item.name }}</h2>
   <h3>Price: ₪ {{ item.price }}</h3>
-  <button mat-raised-button color="primary" (click)="openDialogue()">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="openDialogue()"
+    *ngIf="role && role !== 'admin'"
+  >
     Add to cart
   </button>
+  <button mat-raised-button color="primary" *ngIf="role === 'admin'">
+    Edit
+  </button>
 </div>
-

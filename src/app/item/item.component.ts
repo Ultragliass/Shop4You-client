@@ -13,6 +13,8 @@ import { DialogComponent } from '../dialog/dialog.component';
 export class ItemComponent implements OnInit {
   @Input() id: string;
 
+  role: string;
+
   items: IItem[];
 
   item: IItem;
@@ -26,6 +28,8 @@ export class ItemComponent implements OnInit {
       if (this.items && this.item) {
         return;
       }
+
+      this.role = state.user.userData?.role;
 
       this.items = state.store.store.items;
 

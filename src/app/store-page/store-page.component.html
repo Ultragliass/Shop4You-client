@@ -1,5 +1,5 @@
 <div class="container">
-  <app-cart></app-cart>
+  <app-cart *ngIf="role && role !== 'admin'"></app-cart>
   <div class="categories">
     <button
       mat-button
