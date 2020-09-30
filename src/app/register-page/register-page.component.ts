@@ -19,21 +19,7 @@ export class RegisterPageComponent implements OnInit {
     private store: Store<IState>,
     private fb: FormBuilder,
     private router: Router
-  ) {
-    this.store.subscribe((state) => {
-      if (state.user.isLoggedIn) {
-        router.navigateByUrl('/');
-      }
-
-      if (state.user.step1Valid) {
-        this.step1Valid = state.user.step1Valid;
-
-        this.step1.disable();
-
-        this.step2.enable();
-      }
-    });
-  }
+  ) {}
 
   checkPasswords(group: FormGroup) {
     const { password, confirmPassword } = group.value;
@@ -97,5 +83,20 @@ export class RegisterPageComponent implements OnInit {
     }
 
     this.step2.disable();
+
+    this.store.subscribe((state) => {
+
+      if (state.user.step1Valid) {
+        this.step1Valid = state.user.step1Valid;
+
+        this.step1.disable();
+
+        this.step2.enable();
+      }
+    });
+  }
+
+  goBack(): void {
+    this.router.navigateByUrl('/');
   }
 }

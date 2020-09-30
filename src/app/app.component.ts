@@ -54,4 +54,8 @@ export class AppComponent {
   logoutUser() {
     this.store.dispatch(logout());
   }
+
+  get token() {
+    return localStorage.getItem('token');
+  }
 }

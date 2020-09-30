@@ -1,4 +1,5 @@
 <div class="container">
+  <app-cart></app-cart>
   <div class="categories">
     <button
       mat-button
@@ -18,6 +19,10 @@
     >
       {{ category.name }}
     </button>
+    <mat-form-field appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="search" (ngModelChange)="searchItems()" />
+    </mat-form-field>
   </div>
 
   <div class="items" *ngIf="selectedItems">

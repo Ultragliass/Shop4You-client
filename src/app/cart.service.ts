@@ -16,6 +16,12 @@ export class CartService {
     return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
+  getCart(cartId: string): Observable<{ cartItems: ICartItem[] }> {
+    return this.http.get<{ cartItems: ICartItem[] }>(`${BASE_URL}/${cartId}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
   addItem(
     itemId: string,
     amount: number,
@@ -24,6 +30,17 @@ export class CartService {
     return this.http.post<{ cartItem: ICartItem }>(
       `${BASE_URL}/add_item`,
       { itemId, amount, cartId },
+      { headers: this.getHeaders() }
+    );
+  }
+
+  removeItem(
+    cartId: string,
+    cartItemId: string
+  ): Observable<{ cartItemId: string }> {
+    return this.http.put<{ cartItemId: string }>(
+      `${BASE_URL}/remove_item`,
+      { cartId, cartItemId },
       { headers: this.getHeaders() }
     );
   }

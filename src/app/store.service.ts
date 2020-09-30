@@ -28,4 +28,13 @@ export class StoreService {
       { headers: this.getHeaders() }
     );
   }
+
+  searchItems(
+    term: string
+  ): Observable<{ selectedItems: IItem[]; items: IItem[] }> {
+    return this.http.get<{ selectedItems: IItem[]; items: IItem[] }>(
+      `${BASE_URL}/search/${term}`,
+      { headers: this.getHeaders() }
+    );
+  }
 }

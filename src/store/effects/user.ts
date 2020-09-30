@@ -103,7 +103,7 @@ export class UserEffects {
           }),
           catchError(() => {
             localStorage.removeItem('token');
-            return of(null);
+            return of({type: 'error'});
           })
         )
       )
@@ -142,8 +142,8 @@ export class UserEffects {
           map(({ cartId }) => {
             return completeCreateCart({ cartId });
           }),
-          catchError(() => {
-            return of(null);
+          catchError((error) => {
+            return of({type: 'error'});
           })
         )
       )

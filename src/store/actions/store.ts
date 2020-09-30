@@ -17,3 +17,13 @@ export const receiveItemsByCategory = createAction(
   'GET_ITEMS_BY_CATEGORY_SUCCESS',
   props<{ selectedItems: IItem[]; items: IItem[] }>()
 );
+
+export const searchItems = createAction(
+  'SEARCH_ITEMS_PENDING',
+  props<{ term: string }>()
+);
+
+export const receiveSearchedItems = createAction(
+  'SEARCH_ITEMS_COMPLETE',
+  props<{ selectedItems: IItem[]; items: IItem[] }>()
+);

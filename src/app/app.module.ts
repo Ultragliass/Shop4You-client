@@ -24,6 +24,9 @@ import { ItemComponent } from './item/item.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { FormsModule } from '@angular/forms';
+import { CartComponent } from './cart/cart.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { CartItemComponent } from './cart-item/cart-item.component';
 
 export interface IState {
   store: IStoreState;
@@ -39,6 +42,8 @@ export interface IState {
     StorePageComponent,
     ItemComponent,
     DialogComponent,
+    CartComponent,
+    CartItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +57,7 @@ export interface IState {
     MatSnackBarModule,
     MatDialogModule,
     FormsModule,
+    MatSidenavModule,
     StoreModule.forRoot<IState>({
       store: storeReducer,
       user: userReducer,

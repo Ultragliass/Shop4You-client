@@ -11,7 +11,7 @@ import { startLogin } from '../../store/actions/user';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
   itemAmount$: Observable<number>;
 
   categoryAmount$: Observable<number>;
@@ -32,7 +32,17 @@ export class LoginPageComponent {
     private store: Store<IState>,
     private fb: FormBuilder,
     private router: Router
-  ) {
+  ) {}
+
+  form = this.fb.group({
+    email: this.fb.control('', [Validators.required]),
+    password: this.fb.control('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
+  });
+
+  ngOnInit() {
     this.itemAmount$ = this.store.select(
       (state) => state.store.store?.items.length
     );
@@ -63,14 +73,6 @@ export class LoginPageComponent {
       this.role = state.user.userData.role;
     });
   }
-
-  form = this.fb.group({
-    email: this.fb.control('', [Validators.required]),
-    password: this.fb.control('', [
-      Validators.required,
-      Validators.minLength(8),
-    ]),
-  });
 
   login() {
     const { email, password } = this.form.value;

@@ -3,7 +3,8 @@ import { MatButton } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ICategory, IItem } from 'src/models/store';
-import { fetchItemsByCategory } from 'src/store/actions/store';
+import { IUser } from 'src/models/user';
+import { fetchItemsByCategory, searchItems } from 'src/store/actions/store';
 import { ping, startCreateCart } from 'src/store/actions/user';
 import { IState } from '../app.module';
 
@@ -23,34 +24,12 @@ export class StorePageComponent implements OnInit {
 
   currentCategoryId: string;
 
+  search: string = '';
+
   constructor(private store: Store<IState>, private router: Router) {
-    this.store.subscribe((state) => {
-      this.selectedItems = state.store.selectedItems;
-
-      if (!state.store.store) {
-        return;
-      }
-
-      if (!this.categories) {
-        this.categories = state?.store.store.categories;
-      }
-
-      if (!this.items) {
-        this.items = state?.store.store.items;
-      }
-
-      // if (!state.user.isLoggedIn) {
-      //   router.navigateByUrl('/');
-      //
-      //   return;
-      // }
-
-      if (!state.user.userData) {
-        return;
-      }
-
+    this.store.select((state) => {
       if (!state.user.userData.currentCartId && !state.user.isLoading) {
-        store.dispatch(startCreateCart());
+        this.store.dispatch(startCreateCart());
       }
     });
   }
@@ -66,12 +45,49 @@ export class StorePageComponent implements OnInit {
 
     this.currentCategory = el;
 
+    this.search = '';
+
     this.store.dispatch(fetchItemsByCategory({ categoryId }));
+  }
+
+  searchItems(): void {
+    if (!this.search) {
+      this.selectedItems = this.items;
+      return;
+    }
+
+    if (this.currentCategory) {
+      this.currentCategory.disabled = false;
+    }
+
+    this.currentCategory = null;
+
+    this.store.dispatch(searchItems({ term: this.search }));
   }
 
   ngOnInit(): void {
     this.store.dispatch(ping());
 
     this.store.dispatch(fetchItemsByCategory({ categoryId: null }));
+
+    this.store.subscribe((state) => {
+      this.selectedItems = state.store.selectedItems;
+
+      if (!localStorage.getItem('token')) {
+        this.router.navigateByUrl('/');
+      }
+
+      if (!state.store.store) {
+        return;
+      }
+
+      if (!this.categories) {
+        this.categories = state.store.store.categories;
+      }
+
+      if (!this.items) {
+        this.items = state?.store.store.items;
+      }
+    });
   }
 }

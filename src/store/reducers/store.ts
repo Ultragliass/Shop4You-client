@@ -4,6 +4,7 @@ import {
   fetchItemsByCategory,
   fetchStore,
   receiveItemsByCategory,
+  receiveSearchedItems,
   receiveStore,
 } from '../actions/store';
 
@@ -29,6 +30,17 @@ export const storeReducer = createReducer(
   })),
   on(fetchItemsByCategory, (state) => ({ ...state, isLoading: true })),
   on(receiveItemsByCategory, (state, { selectedItems, items }) => {
+    return {
+      ...state,
+      store: {
+        ...state.store,
+        items,
+      },
+      selectedItems,
+      isLoading: false,
+    };
+  }),
+  on(receiveSearchedItems, (state, { selectedItems, items }) => {
     return {
       ...state,
       store: {
